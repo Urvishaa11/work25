@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Work24 | Workers{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="section-head">
+        <div>
+            <div class="eyebrow">{{ _('popular_workers') }}</div>
+            <h1 class="section-title">{{ _('hero_title') }}</h1>
+        </div>
+        <a href="tel:{{ admin_contact.phone }}" class="rounded-full bg-work24-orange px-5 py-3 text-sm font-bold text-white">{{ _('call_admin') }}</a>
+    </div>
+    <div class="horizontal-scroll mt-6 lg:flex lg:flex-wrap lg:gap-3">
+        <a href="{{ url_for('workers') }}" class="filter-chip {% if not active_category %}active-chip{% endif %}">{{ _('see_all') }}</a>
+        {% for category in worker_categories %}
+        <a href="{{ url_for('workers', category=category) }}" class="filter-chip {% if active_category == category %}active-chip{% endif %}">{{ category }}</a>
+        {% endfor %}
+    </div>
+    <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        {% for worker in workers %}
+        <article class="card">
+            <div class="grid gap-6 md:grid-cols-[0.85fr_1.15fr]">
+                <img src="{{ worker.profile_image }}" alt="{{ worker.name }}" class="h-72 w-full rounded-[1.6rem] object-cover">
+                <div>
+                    <div class="flex items-center justify-between gap-4">
+                        <h2 class="text-2xl font-black">{{ worker.name }}</h2>
+                        <span class="rounded-full bg-sky-50 px-3 py-1 text-xs font-bold text-work24-blue">{{ worker.category }}</span>
+                    </div>
+                    <div class="mt-5 grid grid-cols-3 gap-3">
+                        {% for image in worker.work_images[:3] %}
+                        <img src="{{ image }}" alt="Work sample" class="h-24 w-full rounded-xl object-cover">
+                        {% endfor %}
+                    </div>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <a href="{{ url_for('worker_detail', worker_id=worker.id) }}" class="rounded-full border border-work24-blue px-5 py-3 text-sm font-bold text-work24-blue">{{ _('view_profile') }}</a>
+                        <a href="{{ admin_contact.whatsapp }}" target="_blank" class="rounded-full bg-work24-green px-5 py-3 text-sm font-bold text-white">{{ _('whatsapp_admin') }}</a>
+                        <a href="tel:{{ admin_contact.phone }}" class="rounded-full bg-work24-orange px-5 py-3 text-sm font-bold text-white">{{ _('call_admin') }}</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% else %}
+        <div class="card text-center text-slate-600">No approved workers found for this category yet.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

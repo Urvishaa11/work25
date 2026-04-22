@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Data
+data/*.json
+
+# IDEs
+.vscode/
+.idea/
+.gemini/

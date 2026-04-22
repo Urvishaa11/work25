@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Work24 | Career{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+        <div class="glass-panel p-8">
+            <p class="section-kicker">Career With Work24</p>
+            <h1 class="section-title">Join as a verified professional</h1>
+            <p class="mt-4 text-sm leading-7 text-slate-600">
+                Tell us about your experience and skills. The Work24 team will review your profile and guide you through onboarding.
+            </p>
+        </div>
+        <div class="feature-card">
+            <form method="post" class="validated-form grid gap-4">
+                <div>
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-input" required>
+                </div>
+                <div>
+                    <label class="form-label">Mobile number</label>
+                    <input type="tel" name="mobile" class="form-input" required data-validate="mobile">
+                </div>
+                <div>
+                    <label class="form-label">Skills</label>
+                    <input type="text" name="skills" class="form-input" required placeholder="Furniture, Painting, Plumbing">
+                </div>
+                <div>
+                    <label class="form-label">Experience</label>
+                    <input type="text" name="experience" class="form-input" required placeholder="Example: 6 years">
+                </div>
+                <div>
+                    <label class="form-label">Message</label>
+                    <textarea name="message" rows="5" class="form-input" required placeholder="Tell us about the work you want to take up"></textarea>
+                </div>
+                <button type="submit" class="rounded-full bg-work24-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-work24-green">Submit career request</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

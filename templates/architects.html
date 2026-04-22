@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Work24 | {{ _('architects') }}{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+        <div class="panel p-8">
+            <div class="eyebrow">{{ _('architect_desk') }}</div>
+            <h1 class="mt-3 text-5xl font-black leading-tight">{{ _('send_project_details') }}.</h1>
+            <p class="mt-6 text-sm leading-8 text-slate-600">{{ _('architect_desc') }}</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+                <a href="tel:{{ admin_contact.phone }}" class="rounded-full bg-work24-orange px-5 py-3 text-sm font-bold text-white">{{ _('call_admin') }}</a>
+                <a href="{{ admin_contact.whatsapp }}" target="_blank" class="rounded-full bg-work24-green px-5 py-3 text-sm font-bold text-white">{{ _('whatsapp_admin') }}</a>
+            </div>
+        </div>
+        <div class="card">
+            <form method="post" enctype="multipart/form-data" class="validated-form grid gap-4">
+                <div><label class="form-label">{{ _('company_name_label') }}</label><input class="form-input" type="text" name="company_name" required></div>
+                <div><label class="form-label">{{ _('project_type') }}</label><input class="form-input" type="text" name="project_type" required></div>
+                <div><label class="form-label">{{ _('location_label') }}</label><input class="form-input" type="text" name="location" required></div>
+                <div><label class="form-label">{{ _('budget_range') }}</label><input class="form-input" type="text" name="budget" required></div>
+                <div><label class="form-label">{{ _('message') }}</label><textarea class="form-input" name="message" rows="5" required></textarea></div>
+                <div><label class="form-label">{{ _('design_images') }}</label><input class="form-input" type="file" name="design_images" multiple accept="image/*"></div>
+                <button class="rounded-full bg-work24-blue px-6 py-3 text-sm font-bold text-white transition hover:bg-work24-orange" type="submit">{{ _('submit_project') }}</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

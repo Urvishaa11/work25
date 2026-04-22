@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Work24 | Partner Dashboard{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid gap-8 xl:grid-cols-[0.85fr_1.15fr]">
+        <div class="glass-panel p-8">
+            <p class="section-kicker">{{ partner.role|title }} Dashboard</p>
+            <h1 class="section-title">{{ partner.full_name }}</h1>
+            <p class="mt-4 text-sm leading-7 text-slate-600">
+                Save your draft in local browser storage and publish it to Work24 so customers can discover your profile without seeing personal contact details.
+            </p>
+            <div class="mt-8 rounded-[1.5rem] bg-white/80 p-5">
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-work24-orange">Authenticated Email</p>
+                <p class="mt-2 text-base font-medium text-work24-ink">{{ partner.email }}</p>
+                <p class="mt-4 text-sm text-slate-600">Role: {{ partner.role|title }}</p>
+                <p class="mt-2 text-sm text-slate-600">Status: {{ "Suspended" if partner.suspended else "Active" }}</p>
+            </div>
+            <div class="mt-6 rounded-[1.5rem] bg-work24-green px-5 py-5 text-sm leading-7 text-green-50">
+                Contact details remain hidden from customers. All buyer and service requests are routed through Work24 admin call, WhatsApp, and inquiry forms.
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <p class="section-kicker">Publish Profile</p>
+                    <h2 class="text-2xl font-semibold">Update your live listing</h2>
+                </div>
+                <p class="text-sm text-slate-600">Draft key: <span class="font-semibold text-work24-green">work24-{{ partner.role }}-{{ partner.id }}</span></p>
+            </div>
+
+            <form id="partnerProfileForm"
+                  class="validated-form mt-8 grid gap-4"
+                  data-role="{{ partner.role }}"
+                  data-storage-key="work24-{{ partner.role }}-{{ partner.id }}">
+                {% if partner.role == "worker" %}
+                    <div>
+                        <label class="form-label">Skill title</label>
+                        <input type="text" name="headline" class="form-input" value="{{ partner.profile.headline }}" required placeholder="Example: Modular Furniture Specialist">
+                    </div>
+                    <div>
+                        <label class="form-label">Service category</label>
+                        <select name="service_slug" class="form-input" required>
+                            <option value="">Choose service</option>
+                            {% for service in services %}
+                                <option value="{{ service.slug }}">{{ service.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% else %}
+                    <div>
+                        <label class="form-label">Material name</label>
+                        <input type="text" name="material_name" class="form-input" required placeholder="Example: Granite Slab">
+                    </div>
+                    <div>
+                        <label class="form-label">Category</label>
+                        <input type="text" name="category" class="form-input" required placeholder="Example: Stone & Tiles">
+                    </div>
+                {% endif %}
+
+                <div>
+                    <label class="form-label">Location</label>
+                    <input type="text" name="location" class="form-input" value="{{ partner.profile.location }}" required>
+                </div>
+                <div>
+                    <label class="form-label">{% if partner.role == "worker" %}Short bio{% else %}Short description{% endif %}</label>
+                    <textarea name="bio" rows="4" class="form-input" required>{{ partner.profile.bio }}</textarea>
+                </div>
+                <div>
+                    <label class="form-label">{% if partner.role == "worker" %}Profile image{% else %}Material image{% endif %}</label>
+                    <input type="file" name="profile_photo_file" class="form-input file-input" accept="image/*" {% if partner.role == "seller" %}required{% endif %}>
+                </div>
+                {% if partner.role == "worker" %}
+                    <div>
+                        <label class="form-label">Previous work images (3 to 5)</label>
+                        <input type="file" name="gallery_files" class="form-input file-input" accept="image/*" multiple>
+                    </div>
+                {% endif %}
+                <div class="flex flex-col gap-3 sm:flex-row">
+                    <button type="submit" class="rounded-full bg-work24-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-work24-green">Save to localStorage and publish</button>
+                    <button type="button" id="clearPartnerDraft" class="rounded-full border border-orange-200 px-6 py-3 text-sm font-semibold text-work24-green transition hover:border-work24-green">Clear local draft</button>
+                </div>
+                <p id="partnerFormMessage" class="text-sm font-medium text-slate-600"></p>
+            </form>
+
+            <div class="mt-10">
+                <h3 class="text-lg font-semibold">Current published entries</h3>
+                <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                    {% for item in partner_items %}
+                    <article class="rounded-[1.5rem] border border-orange-100 bg-work24-cream p-4">
+                        {% if partner.role == "worker" %}
+                            <img src="{{ item.profile_photo }}" alt="{{ item.name }}" class="h-36 w-full rounded-2xl object-cover">
+                            <p class="mt-4 font-semibold">{{ item.skill_title }}</p>
+                            <p class="mt-2 text-sm text-slate-600">{{ item.location }}</p>
+                        {% else %}
+                            <img src="{{ item.image }}" alt="{{ item.name }}" class="h-36 w-full rounded-2xl object-cover">
+                            <p class="mt-4 font-semibold">{{ item.name }}</p>
+                            <p class="mt-2 text-sm text-slate-600">{{ item.category }}</p>
+                        {% endif %}
+                    </article>
+                    {% else %}
+                    <div class="rounded-[1.5rem] border border-dashed border-orange-200 bg-orange-50 p-5 text-sm text-slate-600">
+                        No live listing yet. Publish from the form above.
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

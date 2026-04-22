@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Work24 | {{ material_name }}{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="section-head">
+        <div>
+            <div class="eyebrow">{{ _('material_offers') }}</div>
+            <h1 class="section-title">{{ material_name }}</h1>
+            <p class="mt-4 text-sm leading-7 text-slate-600">{{ _('material_detail_desc') }}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+            <a href="tel:{{ admin_contact.phone }}" class="rounded-full bg-work24-orange px-5 py-3 text-sm font-bold text-white">{{ _('call_admin') }}</a>
+            <a href="{{ admin_contact.whatsapp }}" target="_blank" class="rounded-full bg-work24-green px-5 py-3 text-sm font-bold text-white">{{ _('whatsapp_admin') }}</a>
+        </div>
+    </div>
+    <div class="mt-10 grid gap-6">
+        {% for offer in offers %}
+        <article class="card">
+            <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+                <img src="{{ offer.image }}" alt="{{ offer.title }}" class="h-80 w-full rounded-[1.6rem] object-cover">
+                <div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="rounded-full bg-sky-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-work24-blue">{{ category }}</span>
+                        <span class="rounded-full bg-orange-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-work24-orange">{{ offer.price }}</span>
+                    </div>
+                    <h2 class="mt-5 text-2xl font-black">{{ offer.business_name }}</h2>
+                    <p class="mt-2 text-sm font-semibold text-slate-500">{{ _('seller_label') }}: {{ offer.seller_name }}</p>
+                    <p class="mt-1 text-sm font-semibold text-slate-500">{{ _('location_label') }}: {{ offer.location }}</p>
+                    <p class="mt-5 text-sm leading-8 text-slate-600">{{ offer.description }}</p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <a href="tel:{{ admin_contact.phone }}" class="rounded-full border border-work24-orange px-5 py-3 text-sm font-bold text-work24-orange">{{ _('call_to_order') }}</a>
+                        <a href="{{ admin_contact.whatsapp }}" target="_blank" class="rounded-full border border-work24-green px-5 py-3 text-sm font-bold text-work24-green">{{ _('whatsapp_to_order') }}</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+

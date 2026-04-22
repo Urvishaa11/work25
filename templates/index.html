@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %}Work24 | Home{% endblock %}
+{% block content %}
+<section class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
+    <div>
+        <div class="inline-flex rounded-full border border-orange-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.35em] text-work24-orange">{{ _('hero_tagline') }}</div>
+        <h1 class="mt-6 text-5xl font-black leading-tight md:text-6xl">{{ _('hero_title')|safe }}</h1>
+        <p class="mt-6 max-w-2xl text-base leading-8 text-slate-600">{{ _('hero_subtitle') }}</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+            <a href="{{ url_for('workers') }}" class="rounded-full bg-work24-orange px-6 py-4 text-sm font-bold text-white transition hover:bg-work24-green">{{ _('explore_workers') }}</a>
+            <a href="{{ url_for('materials') }}" class="rounded-full border border-work24-blue px-6 py-4 text-sm font-bold text-work24-blue transition hover:bg-work24-blue hover:text-white">{{ _('browse_materials') }}</a>
+            <a href="{{ admin_contact.whatsapp }}" target="_blank" class="rounded-full border border-work24-green px-6 py-4 text-sm font-bold text-work24-green transition hover:bg-work24-green hover:text-white">{{ _('whatsapp_admin') }}</a>
+        </div>
+        <div class="horizontal-scroll mt-10 lg:grid lg:grid-cols-4 lg:gap-4">
+            <div class="stat-card"><span>{{ stats.approved_workers }}</span><p>{{ _('stats_workers') }}</p></div>
+            <div class="stat-card"><span>{{ stats.approved_sellers }}</span><p>{{ _('stats_sellers') }}</p></div>
+            <div class="stat-card"><span>{{ stats.live_materials }}</span><p>{{ _('stats_materials') }}</p></div>
+            <div class="stat-card"><span>{{ stats.architect_requests }}</span><p>{{ _('stats_architects') }}</p></div>
+        </div>
+    </div>
+    <div class="panel p-6 lg:p-8">
+        <div class="grid gap-4 sm:grid-cols-2">
+            <div class="mini-card bg-orange-50">
+                <div class="eyebrow">{{ _('for_customers_title') }}</div>
+                <h3 class="mt-3 text-xl font-bold">{{ _('for_customers_title') }}</h3>
+                <p class="mt-2 text-sm leading-7 text-slate-600">{{ _('for_customers_desc') }}</p>
+            </div>
+            <div class="mini-card bg-sky-50">
+                <div class="eyebrow">{{ _('join') }}</div>
+                <h3 class="mt-3 text-xl font-bold">{{ _('for_workers_title') }}</h3>
+                <p class="mt-2 text-sm leading-7 text-slate-600">{{ _('for_workers_desc') }}</p>
+            </div>
+            <div class="mini-card bg-green-50">
+                <div class="eyebrow">{{ _('sell') }}</div>
+                <h3 class="mt-3 text-xl font-bold">{{ _('for_sellers_title') }}</h3>
+                <p class="mt-2 text-sm leading-7 text-slate-600">{{ _('for_sellers_desc') }}</p>
+            </div>
+            <div class="mini-card bg-white">
+                <div class="eyebrow">{{ _('architects') }}</div>
+                <h3 class="mt-3 text-xl font-bold">{{ _('for_architects_title') }}</h3>
+                <p class="mt-2 text-sm leading-7 text-slate-600">{{ _('for_architects_desc') }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="section-head">
+        <div>
+            <div class="eyebrow">{{ _('popular_workers') }}</div>
+            <h2 class="section-title">{{ _('popular_workers') }}</h2>
+        </div>
+        <a class="text-sm font-bold text-work24-blue" href="{{ url_for('workers') }}">{{ _('see_all') }}</a>
+    </div>
+    <div class="horizontal-scroll mt-8 lg:grid lg:grid-cols-2 lg:gap-6 xl:grid-cols-4">
+        {% for worker in workers %}
+        <a href="{{ url_for('worker_detail', worker_id=worker.id) }}" class="card block min-w-[280px] lg:min-w-0">
+            <img src="{{ worker.profile_image }}" alt="{{ worker.name }}" class="h-56 w-full rounded-[1.5rem] object-cover">
+            <div class="mt-5 flex items-center justify-between">
+                <h3 class="text-lg font-bold">{{ worker.name }}</h3>
+                <span class="rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-work24-orange">{{ worker.category }}</span>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-2">
+                {% for image in worker.work_images[:3] %}
+                <img src="{{ image }}" alt="Work sample" class="h-20 w-full rounded-xl object-cover">
+                {% endfor %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="section-head">
+        <div>
+            <div class="eyebrow">{{ _('materials_store') }}</div>
+            <h2 class="section-title">{{ _('materials_store') }}</h2>
+        </div>
+        <a class="text-sm font-bold text-work24-blue" href="{{ url_for('materials') }}">{{ _('see_all') }}</a>
+    </div>
+    <div class="horizontal-scroll mt-8 lg:grid lg:grid-cols-2 lg:gap-6 xl:grid-cols-3">
+        {% for item in materials %}
+        <a href="{{ url_for('material_detail', material_slug=item.slug) }}" class="card block min-w-[300px] lg:min-w-0">
+            <img src="{{ item.image }}" alt="{{ item.title }}" class="h-56 w-full rounded-[1.5rem] object-cover">
+            <div class="mt-5">
+                <div class="text-xs font-bold uppercase tracking-[0.3em] text-work24-green">{{ item.category }}</div>
+                <h3 class="mt-2 text-xl font-bold">{{ item.title }}</h3>
+                <p class="mt-2 text-sm text-slate-600">From {{ item.seller_names|join(', ') }}</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-lg font-black text-work24-orange">{{ item.starting_price }}</span>
+                    <span class="text-sm font-semibold text-slate-500">{{ item.offer_count }} offers</span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="mx-auto mt-20 max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+    <div class="grid gap-6 lg:grid-cols-3">
+        <a href="{{ url_for('join_worker') }}" class="card block bg-gradient-to-br from-orange-50 to-white"><div class="eyebrow">{{ _('join') }}</div><h3 class="mt-3 text-2xl font-bold">{{ _('register_worker') }}</h3><p class="mt-3 text-sm leading-7 text-slate-600">{{ _('for_workers_desc') }}</p></a>
+        <a href="{{ url_for('join_seller') }}" class="card block bg-gradient-to-br from-sky-50 to-white"><div class="eyebrow">{{ _('sell') }}</div><h3 class="mt-3 text-2xl font-bold">{{ _('register_seller') }}</h3><p class="mt-3 text-sm leading-7 text-slate-600">{{ _('for_sellers_desc') }}</p></a>
+        <a href="{{ url_for('architects') }}" class="card block bg-gradient-to-br from-green-50 to-white"><div class="eyebrow">{{ _('architects') }}</div><h3 class="mt-3 text-2xl font-bold">{{ _('send_brief') }}</h3><p class="mt-3 text-sm leading-7 text-slate-600">{{ _('for_architects_desc') }}</p></a>
+    </div>
+</section>
+{% endblock %}

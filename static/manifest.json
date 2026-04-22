@@ -1,0 +1,21 @@
+{
+  "name": "Work24 - Admin Controlled Marketplace",
+  "short_name": "Work24",
+  "description": "Book trusted workers and explore materials with ease.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffdf7",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "/static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
