@@ -257,7 +257,12 @@ def create_app() -> Flask:
             params.append(category)
         query += " ORDER BY rowid DESC"
         cursor.execute(query, params)
-        visible_workers = [dict(r) for r in cursor.fetchall()]
+        rows = cursor.fetchall()
+        visible_workers = []
+        for r in rows:
+            w = dict(r)
+            w['work_images'] = json.loads(w.get('work_images', '[]'))
+            visible_workers.append(w)
         conn.close()
         return render_template('workers.html', workers=visible_workers, active_category=category)
 
@@ -629,7 +634,12 @@ def create_app() -> Flask:
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM workers ORDER BY rowid DESC")
-        workers = [dict(r) for r in cursor.fetchall()]
+        workers = []
+        for r in cursor.fetchall():
+            w = dict(r)
+            w['work_images'] = json.loads(w.get('work_images', '[]'))
+            workers.append(w)
+            
         cursor.execute("SELECT * FROM sellers ORDER BY rowid DESC")
         sellers = [dict(r) for r in cursor.fetchall()]
         cursor.execute("SELECT * FROM architect_requests ORDER BY rowid DESC")
@@ -778,7 +788,13 @@ def approved_workers_list() -> list[dict[str, Any]]:
     cursor.execute("SELECT * FROM workers WHERE status = 'approved' ORDER BY rowid DESC")
     rows = cursor.fetchall()
     conn.close()
-    return [dict(r) for r in rows]
+    
+    workers = []
+    for r in rows:
+        w = dict(r)
+        w['work_images'] = json.loads(w.get('work_images', '[]'))
+        workers.append(w)
+    return workers
 
 def approved_materials_list() -> list[dict[str, Any]]:
     conn = get_db()
