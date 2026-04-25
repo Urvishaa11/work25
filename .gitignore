@@ -6,7 +6,9 @@ venv/
 .env
 
 # Data
-data/*.json
+data/work24_data.json
+*.db
+*.sqlite3
 
 # IDEs
 .vscode/
