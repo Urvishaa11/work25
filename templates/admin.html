@@ -5,7 +5,7 @@
     <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
             <div class="eyebrow">{{ _('admin_dashboard') }}</div>
-            <h1 class="mt-2 text-4xl font-black">{{ _('admin_hero_title') }}</h1>
+            <h1 class="mt-2 text-2xl md:text-4xl font-black">{{ _('admin_hero_title') }}</h1>
         </div>
         <form method="post" action="{{ url_for('admin_logout') }}">
             <button class="rounded-full border border-orange-200 px-5 py-3 text-sm font-bold text-work24-ink transition hover:border-work24-orange hover:bg-white" type="submit">{{ _('logout') }}</button>
@@ -15,11 +15,11 @@
     <div class="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
         <aside class="panel h-fit p-6 lg:sticky lg:top-24 lg:self-start">
             <div class="text-sm font-black uppercase tracking-[0.28em] text-work24-orange">{{ _('navigation') }}</div>
-            <nav class="mt-6 flex flex-col gap-3 text-sm font-bold">
-                <a href="#workers-section" class="rounded-2xl border border-orange-100 bg-orange-50 px-4 py-3 text-work24-orange transition hover:bg-orange-100">{{ _('workers') }}</a>
-                <a href="#sellers-section" class="rounded-2xl border border-sky-100 bg-sky-50 px-4 py-3 text-work24-blue transition hover:bg-sky-100">{{ _('sellers') }}</a>
-                <a href="#inquiries-section" class="rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-work24-green transition hover:bg-green-100">{{ _('inquiry_requests') }}</a>
-                <a href="#analytics-section" class="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-work24-ink transition hover:border-work24-orange">{{ _('analytics') }}</a>
+            <nav class="mt-6 flex overflow-x-auto pb-4 gap-3 text-sm font-bold lg:flex-col lg:overflow-visible lg:pb-0 scrollbar-hide">
+                <a href="#workers-section" class="whitespace-nowrap rounded-2xl border border-orange-100 bg-orange-50 px-4 py-3 text-work24-orange transition hover:bg-orange-100">{{ _('workers') }}</a>
+                <a href="#sellers-section" class="whitespace-nowrap rounded-2xl border border-sky-100 bg-sky-50 px-4 py-3 text-work24-blue transition hover:bg-sky-100">{{ _('sellers') }}</a>
+                <a href="#inquiries-section" class="whitespace-nowrap rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-work24-green transition hover:bg-green-100">{{ _('inquiry_requests') }}</a>
+                <a href="#analytics-section" class="whitespace-nowrap rounded-2xl border border-slate-200 bg-white px-4 py-3 text-work24-ink transition hover:border-work24-orange">{{ _('analytics') }}</a>
             </nav>
             <div class="mt-8 rounded-[1.5rem] bg-slate-950 px-5 py-5 text-white">
                 <div class="text-xs font-bold uppercase tracking-[0.28em] text-slate-300">{{ _('admin_snapshot') }}</div>

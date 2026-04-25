@@ -3,13 +3,13 @@
 {% block content %}
 <section class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
     <div>
-        <div class="inline-flex rounded-full border border-orange-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.35em] text-work24-orange">{{ _('hero_tagline') }}</div>
-        <h1 class="mt-6 text-5xl font-black leading-tight md:text-6xl">{{ _('hero_title')|safe }}</h1>
+        <div class="inline-flex rounded-full border border-orange-200 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.35em] text-work24-orange text-center leading-relaxed">{{ _('hero_tagline') }}</div>
+        <h1 class="mt-6 text-3xl md:text-5xl lg:text-6xl font-black leading-tight">{{ _('hero_title')|safe }}</h1>
         <p class="mt-6 max-w-2xl text-base leading-8 text-slate-600">{{ _('hero_subtitle') }}</p>
-        <div class="mt-8 flex flex-wrap gap-4">
-            <a href="{{ url_for('workers') }}" class="rounded-full bg-work24-orange px-6 py-4 text-sm font-bold text-white transition hover:bg-work24-green">{{ _('explore_workers') }}</a>
-            <a href="{{ url_for('materials') }}" class="rounded-full border border-work24-blue px-6 py-4 text-sm font-bold text-work24-blue transition hover:bg-work24-blue hover:text-white">{{ _('browse_materials') }}</a>
-            <a href="{{ admin_contact.whatsapp }}" target="_blank" class="rounded-full border border-work24-green px-6 py-4 text-sm font-bold text-work24-green transition hover:bg-work24-green hover:text-white">{{ _('whatsapp_admin') }}</a>
+        <div class="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-4">
+            <a href="{{ url_for('workers') }}" class="rounded-full bg-work24-orange px-6 py-4 text-sm font-bold text-white transition hover:bg-work24-green text-center">{{ _('explore_workers') }}</a>
+            <a href="{{ url_for('materials') }}" class="rounded-full border border-work24-blue px-6 py-4 text-sm font-bold text-work24-blue transition hover:bg-work24-blue hover:text-white text-center">{{ _('browse_materials') }}</a>
+            <a href="{{ admin_contact.whatsapp }}" target="_blank" class="rounded-full border border-work24-green px-6 py-4 text-sm font-bold text-work24-green transition hover:bg-work24-green hover:text-white text-center">{{ _('whatsapp_admin') }}</a>
         </div>
         <div class="horizontal-scroll mt-10 lg:grid lg:grid-cols-4 lg:gap-4">
             <div class="stat-card"><span>{{ stats.approved_workers }}</span><p>{{ _('stats_workers') }}</p></div>

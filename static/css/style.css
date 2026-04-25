@@ -45,3 +45,5 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-bot
     width: 100%;
   }
 }
+.scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
