@@ -1,4 +1,4 @@
-const CACHE_NAME = 'work24-v2';
+const CACHE_NAME = 'work24-v3';
 const ASSETS = [
   '/static/css/style.css',
   '/static/js/main.js',
